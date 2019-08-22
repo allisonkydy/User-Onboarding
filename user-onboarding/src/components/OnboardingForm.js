@@ -4,26 +4,36 @@ import * as Yup from 'yup';
 import axios from 'axios';
 
 const OnboardingForm = ({ values, errors, touched, status }) => {
-   const [users, setUsers] = useState({});
+   const [users, setUsers] = useState([]);
 
    useEffect(() => {
       if (status) setUsers([...users, status]);
    }, [status])
 
    return (
-      <Form>
-         <Field type="text" name="name" placeholder="name" />
-         {touched.name && errors.name && <p>{errors.name}</p>}
-         <Field type="email" name="email" placeholder="email" />
-         {touched.email && errors.email && <p>{errors.email}</p>}
-         <Field type="password" name="password" placeholder="password" />
-         {touched.password && errors.password && <p>{errors.password}</p>}
-         <label>
-            <Field type="checkbox" name="tos" checked={values.tos} />
-            Accept Terms of Service
-         </label>
-         <button type="submit">Submit</button>
-      </Form>
+      <div>
+         <Form>
+            <Field type="text" name="name" placeholder="name" />
+            {touched.name && errors.name && <p>{errors.name}</p>}
+            <Field type="email" name="email" placeholder="email" />
+            {touched.email && errors.email && <p>{errors.email}</p>}
+            <Field type="password" name="password" placeholder="password" />
+            {touched.password && errors.password && <p>{errors.password}</p>}
+            <label>
+               <Field type="checkbox" name="tos" checked={values.tos} />
+               Accept Terms of Service
+            </label>
+            <button type="submit">Submit</button>
+         </Form>
+         {users.map(user => {
+            return (
+               <div key={user.id}>
+                  <p>{user.name}</p>
+                  <p>{user.email}</p>
+               </div>
+            )
+         })}
+      </div>
    );
 };
 
