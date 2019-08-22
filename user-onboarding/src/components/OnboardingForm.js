@@ -66,17 +66,18 @@ const FormikOnboardingForm = withFormik({
       name: Yup.string().required("gotta enter a name"),
       email: Yup.string()
          .required("gotta have email")
-         .oneOf(['waffle@syrup.com'], "already taken"),
+         .notOneOf(['waffle@syrup.com'], "already taken"),
       password: Yup.string().required("gotta enter a password"),
       gender: Yup.string().required("gender cannot be blank"),
       tos: Yup.boolean().oneOf([true], "gotta check it bud")
    }),
 
-   handleSubmit(values, { setStatus }) {
+   handleSubmit(values, { setStatus, resetForm }) {
       axios.post('https://reqres.in/api/users', values)
          .then(response => {
             console.log(response);
             setStatus(response.data);
+            resetForm();
          })
          .catch(error => {
             console.log(error);
