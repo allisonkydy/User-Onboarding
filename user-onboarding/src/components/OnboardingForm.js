@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const OnboardingForm = ({ values, errors, touched }) => {
    return (
@@ -34,7 +35,18 @@ const FormikOnboardingForm = withFormik({
       name: Yup.string().required("Please enter a name"),
       email: Yup.string().required("Please enter an email address"),
       password: Yup.string().required("Please enter a password")
-   })
+   }),
+
+   handleSubmit(values, { setStatus }) {
+      axios.post('https://reqres.in/api/users', values)
+         .then(response => {
+            console.log(response);
+            setStatus(response.data);
+         })
+         .catch(error => {
+            console.log(error);
+         })
+   }
 
 })(OnboardingForm);
 
