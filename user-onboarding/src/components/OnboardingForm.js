@@ -11,28 +11,30 @@ const OnboardingForm = ({ values, errors, touched, status }) => {
    }, [status])
 
    return (
-      <div>
-         <Form>
+      <div className="form-container">
+         <Form className="form">
             <Field type="text" name="name" placeholder="name" />
-            {touched.name && errors.name && <p>{errors.name}</p>}
+            {touched.name && errors.name && <p className="error">{errors.name}</p>}
             <Field type="email" name="email" placeholder="email" />
-            {touched.email && errors.email && <p>{errors.email}</p>}
+            {touched.email && errors.email && <p className="error">{errors.email}</p>}
             <Field type="password" name="password" placeholder="password" />
-            {touched.password && errors.password && <p>{errors.password}</p>}
+            {touched.password && errors.password && <p className="error">{errors.password}</p>}
             <label>
                <Field type="checkbox" name="tos" checked={values.tos} />
-               Accept Terms of Service
+               accept terms of service
             </label>
-            <button type="submit">Submit</button>
+            <button type="submit">submit</button>
          </Form>
-         {users.map(user => {
-            return (
-               <div key={user.id}>
-                  <p>{user.name}</p>
-                  <p>{user.email}</p>
-               </div>
-            )
-         })}
+         <div className="user-container">
+            {users.map(user => {
+               return (
+                  <div key={user.id} className="user">
+                     <h2>{user.name}</h2>
+                     <p>{user.email}</p>
+                  </div>
+               )
+            })}
+         </div>
       </div>
    );
 };
@@ -48,9 +50,9 @@ const FormikOnboardingForm = withFormik({
    },
 
    validationSchema: Yup.object().shape({
-      name: Yup.string().required("Please enter a name"),
-      email: Yup.string().required("Please enter an email address"),
-      password: Yup.string().required("Please enter a password")
+      name: Yup.string().required("please enter a name"),
+      email: Yup.string().required("please enter an email address"),
+      password: Yup.string().required("please enter a password")
    }),
 
    handleSubmit(values, { setStatus }) {
