@@ -3,12 +3,14 @@ import { Form, Field, withFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-const OnboardingForm = ({ values, errors, touched, status }) => {
+const OnboardingForm = ({ values, errors, touched, status, setFieldValue }) => {
    const [users, setUsers] = useState([]);
 
    useEffect(() => {
       if (status) setUsers([...users, status]);
    }, [status])
+
+   console.log(values);
 
    return (
       <div className="form-container">
@@ -36,15 +38,36 @@ const OnboardingForm = ({ values, errors, touched, status }) => {
             <fieldset>
                <legend>choose a breakfast food:</legend>
                <div className="food-choice">
-                  <input type="radio" id="eggs" value="eggs" name="food" />
+                  <input 
+                     type="radio" 
+                     id="eggs" 
+                     value={values.food} 
+                     name="food" 
+                     checked={values.food === 'eggs'} 
+                     onChange={() => setFieldValue('food', 'eggs')}
+                  />
                   <label htmlFor="eggs"> eggs</label>
                </div>
                <div className="food-choice">
-                  <input type="radio" id="waffles" value="waffles" name="food" />
+                  <input 
+                     type="radio" 
+                     id="waffles" 
+                     value={values.food} 
+                     name="food" 
+                     checked={values.food === 'waffles'} 
+                     onChange={() => setFieldValue('food', 'waffles')}
+                  />
                   <label htmlFor="waffles"> waffles</label>
                </div>
                <div className="food-choice">
-                  <input type="radio" id="pancakes" value="pancakes" name="food" />
+               <input 
+                     type="radio" 
+                     id="pancakes" 
+                     value={values.food} 
+                     name="food" 
+                     checked={values.food === 'pancakes'} 
+                     onChange={() => setFieldValue('food', 'pancakes')}
+                  />
                   <label htmlFor="pancakes"> pancakes</label>
                </div>
             </fieldset>
@@ -80,8 +103,8 @@ const FormikOnboardingForm = withFormik({
          password: password || "",
          tos: tos || false,
          gender: gender || undefined,
-         color: color || "",
-         food: food || ""
+         color: color || "#000000",
+         food: food || "none"
       }
    },
 
