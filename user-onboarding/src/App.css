@@ -27,13 +27,29 @@ html {
    align-items: flex-start;
 }
 
-input, label {
+input, label, legend {
    margin-bottom: 15px;
    font-size: 1.4rem;
 }
 
 input {
    padding: 5px;
+}
+
+.color {
+   height: 30px;
+   margin: unset;
+}
+
+fieldset {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 10px;
+}
+
+.food-choice {
+   width: 80%;
+   margin-left: 20px;
 }
 
 button {

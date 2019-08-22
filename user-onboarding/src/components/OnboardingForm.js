@@ -21,7 +21,7 @@ const OnboardingForm = ({ values, errors, touched, status }) => {
             <Field type="password" name="password" placeholder="password" />
             <label htmlFor="gender">
                {touched.gender && errors.gender && <p className="error">{errors.gender}</p>}
-               select gender: 
+               <span>select gender: </span>
                <Field component="select" name="gender">
                   <option></option>
                   <option value="female">female</option>
@@ -30,9 +30,28 @@ const OnboardingForm = ({ values, errors, touched, status }) => {
                </Field>
             </label>
             <label>
+               <span>choose a color: </span>
+               <Field type="color" name="color" className="color" />
+            </label>
+            <fieldset>
+               <legend>choose a breakfast food:</legend>
+               <div className="food-choice">
+                  <input type="radio" id="eggs" value="eggs" name="food" />
+                  <label htmlFor="eggs"> eggs</label>
+               </div>
+               <div className="food-choice">
+                  <input type="radio" id="waffles" value="waffles" name="food" />
+                  <label htmlFor="waffles"> waffles</label>
+               </div>
+               <div className="food-choice">
+                  <input type="radio" id="pancakes" value="pancakes" name="food" />
+                  <label htmlFor="pancakes"> pancakes</label>
+               </div>
+            </fieldset>
+            <label>
                {touched.tos && errors.tos && <p className="error">{errors.tos}</p>}
                <Field type="checkbox" name="tos" checked={values.tos} />
-               accept terms of service
+               <span> accept terms of service</span>
             </label>
             <button type="submit">submit</button>
          </Form>
@@ -43,6 +62,8 @@ const OnboardingForm = ({ values, errors, touched, status }) => {
                      <h2>{user.name}</h2>
                      <p>gender: {user.gender}</p>
                      <p>{user.email}</p>
+                     <p>color: {user.color}</p>
+                     <p>favorite breakfast: {user.food}</p>
                   </div>
                )
             })}
@@ -52,13 +73,15 @@ const OnboardingForm = ({ values, errors, touched, status }) => {
 };
 
 const FormikOnboardingForm = withFormik({
-   mapPropsToValues({ name, email, password, tos, gender }) {
+   mapPropsToValues({ name, email, password, tos, gender, color, food }) {
       return {
          name: name || "",
          email: email || "", 
          password: password || "",
          tos: tos || false,
-         gender: gender || undefined
+         gender: gender || undefined,
+         color: color || "",
+         food: food || ""
       }
    },
 
