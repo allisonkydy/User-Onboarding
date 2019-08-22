@@ -28,9 +28,12 @@ html {
 }
 
 input, label {
-   margin: 10px 0;
-   padding: 5px;
+   margin-bottom: 15px;
    font-size: 1.4rem;
+}
+
+input {
+   padding: 5px;
 }
 
 button {
@@ -40,6 +43,7 @@ button {
 .error {
    color: orangered;
    font-size: 1.1rem;
+   margin-bottom: 4px;
 }
 
 .user-container {
